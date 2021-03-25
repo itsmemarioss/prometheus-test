@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecd
+    depends_on:
+      - pushgateway
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+
+  pushgateway:
+    image: prom/pushgateway
+    ports:
+      - "9091:9091"
